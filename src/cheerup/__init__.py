@@ -52,11 +52,13 @@ def oneshot(cmd: str, lang: Optional[str] = None) -> None:
 def main() -> None:
     """Main function."""
 
-    parser = argparse.ArgumentParser(prog="cheer", description="Cheer up programmers.")
+    parser = argparse.ArgumentParser(
+        prog="cheerup", description="Cheer on your command-line expertise!"
+    )
     parser.add_argument(
         "-i", "--interactive", action="store_true", help="Interactive mode"
     )
-    parser.add_argument("-c", "--command", help="Cheer up for the command")
+    parser.add_argument("-c", "--command", help="Compliment the command")
     parser.add_argument(
         "-l",
         "--lang",

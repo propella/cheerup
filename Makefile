@@ -5,6 +5,6 @@ format:
 	black .
 
 mypy:
-	mypy --disallow-untyped-defs src/cheer
+	mypy --disallow-untyped-defs src/cheerup
 
 .PHONY: install

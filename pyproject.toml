@@ -1,8 +1,8 @@
 [project]
-name = "cheer"
+name = "cheerup"
 version = "0.1.0"
 authors = [{ name = "Takashi Yamamiya", email = "tak@metatoys.org" }]
-description = "A tool to cheer you up."
+description = "Cheer on your command-line expertise!"
 readme = "README.md"
 requires-python = ">=3.9"
 
@@ -24,4 +24,4 @@ dev = [
 ]
 
 [project.scripts]
-cheer = "cheer:main"
+cheerup = "cheerup:main"

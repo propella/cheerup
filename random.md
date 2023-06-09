@@ -4,7 +4,7 @@ instructions
 
 ```
 pyenv local 3.9
-python -m venv .venv --prompt cheer
+python -m venv .venv --prompt cheerup
 source .venv/bin/activate
 make install
 
