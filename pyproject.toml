@@ -1,0 +1,27 @@
+[project]
+name = "cheer"
+version = "0.1.0"
+authors = [{ name = "Takashi Yamamiya", email = "tak@metatoys.org" }]
+description = "A tool to cheer you up."
+readme = "README.md"
+requires-python = ">=3.9"
+
+dependencies = [
+    "openai",
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "mypy",
+    "pylint",
+]
+
+[project.scripts]
+cheer = "cheer:main"
