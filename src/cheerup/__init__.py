@@ -6,8 +6,8 @@ from typing import Optional
 import openai
 
 
-def get_response(cmd: str, locale: Optional[str] = None) -> str:
-    """Get response from OpenAI API."""
+def chat(cmd: str, locale: Optional[str] = None) -> str:
+    """Print response from OpenAI API."""
 
     prompt = "You are an AI assistant adept at complimenting programmers. Please provide verbose compliments on the user's Unix command inputs."
 
@@ -25,9 +25,18 @@ def get_response(cmd: str, locale: Optional[str] = None) -> str:
             },
             {"role": "user", "content": cmd},
         ],
+        stream=True,
     )
     # pprint(response)
-    return response["choices"][0]["message"]["content"]
+    answer = ""
+    for chunk in response:
+        # pprint(chunk)
+        content = chunk["choices"][0]["delta"].get("content", "")
+        print(content, end="", flush=True)
+
+        answer += content
+    print()
+    return answer
 
 
 def interactive(lang: Optional[str] = None) -> None:
@@ -36,17 +45,9 @@ def interactive(lang: Optional[str] = None) -> None:
     while True:
         try:
             cmd = input("$ ")
-            message = get_response(cmd, lang)
-            print(message)
+            chat(cmd, lang)
         except (KeyboardInterrupt, EOFError):
             return
-
-
-def oneshot(cmd: str, lang: Optional[str] = None) -> None:
-    """One-shot mode."""
-
-    message = get_response(cmd, lang)
-    print(message)
 
 
 def main() -> None:
@@ -70,7 +71,7 @@ def main() -> None:
     if args.interactive:
         interactive(args.lang)
     elif args.command:
-        oneshot(args.command, args.lang)
+        chat(args.command, args.lang)
     else:
         parser.print_help()
 

