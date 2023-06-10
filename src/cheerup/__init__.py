@@ -42,29 +42,38 @@ def chat(cmd: str, locale: Optional[str] = None) -> str:
 
     query = {"role": "user", "content": cmd}
     messages = messages = [
+        *history,
         {
             "role": "system",
             "content": prompt,
         },
-        *history,
         query,
     ]
-    pprint(messages)
+    # pprint(messages)
 
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages,
-        stream=True,
-    )
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages,
+            stream=True,
+        )
+    except openai.error.AuthenticationError:
+        print("Please set OPENAI_API_KEY environment variable.")
+        sys.exit(1)
+
     # pprint(response)
-    answer = ""
-    for chunk in response:
-        # pprint(chunk)
-        content = chunk["choices"][0]["delta"].get("content", "")
-        print(content, end="", flush=True)
 
-        answer += content
-    print()
+    try:
+        answer = ""
+        for chunk in response:
+            # pprint(chunk)
+            content = chunk["choices"][0]["delta"].get("content", "")
+            print(content, end="", flush=True)
+
+            answer += content
+        print()
+    except KeyboardInterrupt:
+        print("(skip)")
     save_history([*history, query, {"role": "assistant", "content": answer}][-10:])
     return answer
 
