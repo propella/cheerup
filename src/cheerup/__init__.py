@@ -118,6 +118,8 @@ def main() -> None:
         interactive(args.lang)
     elif args.command:
         chat(args.command, args.lang)
+    elif args.command == "":
+        sys.exit(0)  # When it is called by cheerup.zsh, it is called with empty string.
     elif args.history:
         show_history()
     else:
