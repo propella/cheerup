@@ -12,3 +12,5 @@ export OPENAI_API_KEY=<your openai API key>
 cheerup -i
 $ echo "Hello, World!"
 ```
+
+The last 10 conversations are saved into `${TMPDIR}cheerup_history.json`.
