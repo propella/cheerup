@@ -4,7 +4,7 @@
 
 Whether you're a newbie just learning the ropes, or an experienced system administrator running complex commands, `cheerup` is here to celebrate your accomplishments and keep you motivated.
 
-[cheerup.webm](https://github.com/propella/cheerup/assets/79028/80b0f11b-5a94-412e-a3e3-28640fc29d44)
+https://github.com/propella/cheerup/assets/79028/bfb30b42-2eaa-46e0-aa91-bbf4dcad24ee
 
 ## Instructions for ZSH
 
