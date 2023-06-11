@@ -15,6 +15,9 @@ export LANG=ja_JP.UTF-8
 interesting commands
 
 ```
+ls
+git status
 sl
 rm -rf /*
+export LANG=zh_CN.UTF-8
 ```

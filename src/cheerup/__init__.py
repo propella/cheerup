@@ -89,6 +89,31 @@ def interactive(lang: Optional[str] = None) -> None:
             return
 
 
+# pylint: disable=consider-using-f-string)
+def show_zsh_script() -> None:
+    """Show inititialize script for zsh."""
+    command = sys.argv[0]
+    print(
+        """
+# Save the last command.
+CHEERUP_LAST_COMMAND=""
+CHEEUP_EXE="%s"
+
+preexec() {
+    CHEERUP_LAST_COMMAND=$1
+}
+
+precmd() {
+    # Prevent cheerup command from running on itself.
+    if [[ "$CHEERUP_LAST_COMMAND" != "$CHEEUP_EXE -c"* ]]; then
+        $CHEEUP_EXE -c "$CHEERUP_LAST_COMMAND"
+    fi
+}
+"""
+        % (command)
+    )
+
+
 def show_history() -> None:
     """Show history."""
     print(f"History file: {historyfile}")
@@ -102,16 +127,17 @@ def main() -> None:
         prog="cheerup", description="Cheer on your command-line expertise!"
     )
     parser.add_argument(
-        "-i", "--interactive", action="store_true", help="Interactive mode"
+        "-i", "--interactive", action="store_true", help="interactive mode"
     )
-    parser.add_argument("-c", "--command", help="Compliment the command")
+    parser.add_argument("-c", "--command", help="compliment the command")
     parser.add_argument(
         "-l",
         "--lang",
         default=os.environ.get("LANG"),
-        help="Locale. Default is LANG environment variable.",
+        help="locale, default is LANG environment variable.",
     )
-    parser.add_argument("--history", action="store_true", help="Show history")
+    parser.add_argument("--zsh", action="store_true", help="show zsh script")
+    parser.add_argument("--history", action="store_true", help="show history")
     args = parser.parse_args()
 
     if args.interactive:
@@ -120,6 +146,8 @@ def main() -> None:
         chat(args.command, args.lang)
     elif args.command == "":
         sys.exit(0)  # When it is called by cheerup.zsh, it is called with empty string.
+    elif args.zsh:
+        show_zsh_script()
     elif args.history:
         show_history()
     else:

@@ -1,4 +1,5 @@
-.venv
+.venv/
 .python-version
 *.pyc
 *.egg-info
+dist/
