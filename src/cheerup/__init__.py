@@ -35,7 +35,7 @@ def save_history(history: list[dict]) -> None:
 def chat(cmd: str, locale: Optional[str] = None) -> str:
     """Print response from OpenAI API."""
 
-    prompt = "You are an AI assistant adept at complimenting programmers. Please provide verbose compliments on the user's Unix command inputs."
+    prompt = "You are an AI assistant adept at complimenting programmers. Please provide verbose compliments with many emojis on the user's Unix command inputs."
     if locale:
         prompt += f" Use the language in the locale: {locale}."
     history = get_history()
@@ -51,6 +51,7 @@ def chat(cmd: str, locale: Optional[str] = None) -> str:
     ]
     # pprint(messages)
 
+    print("🤖 ", end="", flush=True)
     try:
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",

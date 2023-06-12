@@ -1,6 +1,6 @@
 [project]
 name = "cheerup"
-version = "0.1.2"
+version = "0.1.3"
 authors = [{ name = "Takashi Yamamiya", email = "tak@metatoys.org" }]
 description = "Cheer on your command-line expertise!"
 readme = "README.md"

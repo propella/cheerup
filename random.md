@@ -1,8 +1,10 @@
 # Author's notes
 
-instructions
+## instructions
 
 ```
+git clone git@github.com:propella/cheerup.git
+cd cheerup
 pyenv local 3.9
 python -m venv .venv --prompt cheerup
 source .venv/bin/activate
@@ -21,3 +23,7 @@ sl
 rm -rf /*
 export LANG=zh_CN.UTF-8
 ```
+
+## todos
+
+- Interrupt the response when the user press any key.
