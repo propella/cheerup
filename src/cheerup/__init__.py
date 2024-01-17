@@ -1,3 +1,6 @@
+"""
+cheerup - Cheer on your command-line expertise!
+"""
 import argparse
 import os
 import sys
@@ -7,12 +10,21 @@ from typing import Optional
 import json
 
 import openai
+from openai import OpenAI
+from openai.types.chat import (
+    ChatCompletionMessageParam,
+    ChatCompletionUserMessageParam,
+    ChatCompletionAssistantMessageParam,
+)
+
+
+client = OpenAI()
 
 
 historyfile = os.path.join(tempfile.gettempdir(), "cheerup_history.json")
 
 
-def get_history() -> list[dict]:
+def get_history() -> list[ChatCompletionMessageParam]:
     """Get history from file."""
     history = []
     try:
@@ -25,7 +37,7 @@ def get_history() -> list[dict]:
     return history
 
 
-def save_history(history: list[dict]) -> None:
+def save_history(history: list[ChatCompletionMessageParam]) -> None:
     """Save history to file."""
     with open(historyfile, "w", encoding="utf-8") as file:
         jsondata = json.dumps(history, indent=2)
@@ -35,13 +47,14 @@ def save_history(history: list[dict]) -> None:
 def chat(cmd: str, locale: Optional[str] = None) -> str:
     """Print response from OpenAI API."""
 
+    # pylint: disable=line-too-long
     prompt = "You are an AI assistant adept at complimenting programmers. Please provide verbose compliments with many emojis on the user's Unix command inputs."
     if locale:
         prompt += f" Use the language in the locale: {locale}."
     history = get_history()
 
-    query = {"role": "user", "content": cmd}
-    messages = messages = [
+    query: ChatCompletionUserMessageParam = {"role": "user", "content": cmd}
+    messages: list[ChatCompletionMessageParam] = [
         *history,
         {
             "role": "system",
@@ -52,30 +65,35 @@ def chat(cmd: str, locale: Optional[str] = None) -> str:
     # pprint(messages)
 
     print("🤖 ", end="", flush=True)
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=messages,
-            stream=True,
-        )
-    except openai.error.AuthenticationError:
-        print("Please set OPENAI_API_KEY environment variable.")
-        sys.exit(1)
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        stream=True,
+    )
 
     # pprint(response)
 
     try:
         answer = ""
-        for chunk in response:
-            # pprint(chunk)
-            content = chunk["choices"][0]["delta"].get("content", "")
-            print(content, end="", flush=True)
 
-            answer += content
+        for chunk in response:  # pylint: disable=not-an-iterable
+            # pprint(chunk)
+            content = chunk.choices[0].delta.content
+
+            if content:
+                print(content, end="", flush=True)
+                answer += content
         print()
+
+        # answer = response.choices[0].message.content
+        # print(answer)
     except KeyboardInterrupt:
         print("(skip)")
-    save_history([*history, query, {"role": "assistant", "content": answer}][-10:])
+    new_completion: ChatCompletionAssistantMessageParam = {
+        "role": "assistant",
+        "content": answer,
+    }
+    save_history([*history, query, new_completion][-10:])
     return answer
 
 
@@ -90,7 +108,7 @@ def interactive(lang: Optional[str] = None) -> None:
             return
 
 
-# pylint: disable=consider-using-f-string)
+# pylint: disable=consider-using-f-string
 def show_zsh_script() -> None:
     """Show inititialize script for zsh."""
     command = sys.argv[0]

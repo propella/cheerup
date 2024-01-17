@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "cheerup",
+            "type": "python",
+            "request": "launch",
+            "program": "./.venv/bin/cheerup",
+            "console": "integratedTerminal",
+            "env": {
+                "OPENAI_API_KEY": "???"
+            },
+            "args": [
+                "-c",
+                "ls"
+            ]
+        }
+    ]
+}
