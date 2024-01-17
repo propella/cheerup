@@ -10,9 +10,6 @@
             "request": "launch",
             "program": "./.venv/bin/cheerup",
             "console": "integratedTerminal",
-            "env": {
-                "OPENAI_API_KEY": "???"
-            },
             "args": [
                 "-c",
                 "ls"

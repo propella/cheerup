@@ -8,7 +8,7 @@ https://github.com/propella/cheerup/assets/79028/7499ddba-bd78-42fa-baf0-b5c3d67
 
 ## Instructions for ZSH
 
-This tool requires your OpenAI API key. You can generate one at https://platform.openai.com/account/api-keys. Once you have obtained an API key, please set it as the OPENAI_API_KEY environment variable.
+This tool requires your OpenAI API key. You can generate one at https://platform.openai.com/account/api-keys. Once you have obtained an API key, please set it as the OPENAI_API_KEY environment variable. Alternatively, you can write the OPENAI_API_KEY to the `.env` file.
 
 ```shell
 $ export OPENAI_API_KEY=<Your OpenAI API key>

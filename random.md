@@ -14,6 +14,11 @@ export OPENAI_API_KEY=(Your OpenAI API Key)
 export LANG=ja_JP.UTF-8
 
 cheerup -c ls
+
+git commit xxx
+git push xxx
+git tag xxx
+git push xxx
 ```
 
 interesting commands
@@ -28,8 +33,4 @@ export LANG=zh_CN.UTF-8
 
 ## todos
 
-- Use dotenv
-- Migration
-    - https://github.com/openai/openai-python/discussions/742
-    - https://github.com/openai/openai-python/blob/main/README.md
 - Interrupt the response when the user press any key.

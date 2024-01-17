@@ -9,7 +9,7 @@ from pprint import pprint
 from typing import Optional
 import json
 
-import openai
+from dotenv import load_dotenv
 from openai import OpenAI
 from openai.types.chat import (
     ChatCompletionMessageParam,
@@ -17,7 +17,7 @@ from openai.types.chat import (
     ChatCompletionAssistantMessageParam,
 )
 
-
+load_dotenv()
 client = OpenAI()
 
 

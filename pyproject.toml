@@ -1,6 +1,6 @@
 [project]
 name = "cheerup"
-version = "0.1.4"
+version = "0.1.5"
 authors = [{ name = "Takashi Yamamiya", email = "tak@metatoys.org" }]
 description = "Cheer on your command-line expertise!"
 readme = "README.md"
@@ -8,6 +8,7 @@ requires-python = ">=3.10"
 
 dependencies = [
     "openai",
+    "python-dotenv",
 ]
 
 classifiers = [
